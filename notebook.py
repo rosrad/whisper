@@ -20,17 +20,6 @@ model = whisper.load_model(model_name, download_root="data/models")
 # model_file = f"/home/boren/whisper/data/models/{model_name}.pt"
 # state_dict = torch.load(model_file, map_location="cpu")
 # %%
-result = model.transcribe(audio_file)
+result = model.transcribe(audio_file, language="en", beam_size=4)
+# result = model.transcribe(audio_file)
 print(result["text"])
-
-x = torch.rand(1, 80, 3000).to(model.device)
-
-torch.onnx.export(
-    model.encoder,
-    x,
-    "base.dec.onnx",
-    export_params=True,
-    do_constant_folding=True,
-    verbose=True,
-    opset_version=12,
-)
