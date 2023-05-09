@@ -247,8 +247,8 @@ def transcribe(
             current_segments = []
 
             timestamp_tokens: torch.Tensor = tokens.ge(tokenizer.timestamp_begin)
-            single_timestamp_ending = timestamp_tokens[-2:].tolist() == [False, True]
-
+            # single_timestamp_ending = timestamp_tokens[-2:].tolist() == [False, True]
+            single_timestamp_ending = False
             consecutive = torch.where(timestamp_tokens[:-1] & timestamp_tokens[1:])[0]
             consecutive.add_(1)
             if len(consecutive) > 0:
